@@ -267,6 +267,11 @@ class ImageSection:
         if x >= 0 and x < self.width and y >= 0 and y < self.height:
             self.data[y][x] = color
 
+    def clear(self):
+        self.data = [
+            [(0, 0, 0) for _ in range(self.width)] for _ in range(self.height)
+        ]
+
 
 class PngImage:
     def __init__(

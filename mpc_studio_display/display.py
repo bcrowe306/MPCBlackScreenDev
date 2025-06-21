@@ -1,24 +1,25 @@
 from .util import clamp, message_length, msblsb
 from .graphics import PngDrawing, ImageSection, Icons_5x5
-
+DISPLAY_WIDTH = 360
+DISPLAY_HEIGHT = 96
 class Display:
 
     def __init__(self, send_payload ) -> None:
         self.send_payload = send_payload
-        self._pages = {}
+        self.pages = {}
         self._current_page = None
 
     def initialize(self):
-        for page_name in self._pages:
-            page = self._pages[page_name]
+        for page_name in self.pages:
+            page = self.pages[page_name]
             page.initialize(self.send_payload)
 
     def add_page(self, name, page):
-        self._pages[name] = page
+        self.pages[name] = page
 
     def show_page(self, name):
-        for page_name in self._pages:
-            page = self._pages[page_name]
+        for page_name in self.pages:
+            page = self.pages[page_name]
             if page_name != name:
                 page.deactivate()
             else:
@@ -77,6 +78,7 @@ class Element(ImageSection):
     def add_element(self, element, name=None):
         name = name if name else element.name
         setattr(self, name, element)
+        return element
 
     def render(self):
         if self.active:
@@ -103,4 +105,4 @@ class Element(ImageSection):
 
 class Page(Element):
     def __init__(self, name):
-        super().__init__(name, 0, 0, 360, 96)
+        super().__init__(name, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT)
