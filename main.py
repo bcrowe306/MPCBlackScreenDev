@@ -44,6 +44,8 @@ def choose_output(midi_port_name: str):
     selected_port = outPorts[outPortIndex]
     print(f"Opening output: {selected_port}")
     return mido.open_output(selected_port)
+
+
 def choose_input(midi_port_name: str):
     in_ports = mido.get_input_names()
     found_port = False
